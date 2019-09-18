@@ -20,7 +20,7 @@ const initialState = {
 }
 
 
-    
+//    # Funciona pero no resetea campos
 
 const reducer = (state, { field, value }) => {
     return {
@@ -34,7 +34,7 @@ const reducer = (state, { field, value }) => {
 //     switch (action.type) {
 //         case 'update':
 //             return {
-//                 ...state, [field]: value
+//                 ...state, name: action.name, last_name: action.last_name, email: action.email, password: action.password
 //             }
 //         case 'reset':
 //             return initialState
@@ -49,13 +49,14 @@ const SignUp = () => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     const onChange = (e) => {
-        dispatch({ type: 'update', field: e.target.name, value: e.target.value })
+        dispatch({ field: e.target.name, value: e.target.value })
     }
 
     const handleSubmit = (e) => {   
         if (terms) {
             if (password === confirm_password) {
                 setUser(prevUser => [...prevUser, { name: name, last_name: last_name, email: email, password: password }])
+
             } else {
                 alert("Las contraseñas no coinciden")
             }
