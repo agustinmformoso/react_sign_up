@@ -10,28 +10,63 @@ import { UserListContext } from '../../Store/UserListContext';
 
 import CircleLeft from '../../Resources/Icons/chevron-circle-left-solid.svg';
 
-// const initialState = {
-//     user: '',
-//     name: '',
-//     last_name: '',
-//     email: '',
-//     password: '',
-//     confirm_password: '',
-//     terms: false
-// }
+const initialState = {
+    user: '',
+    name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    confirm_password: ''
+}
 
-// const reducer = (state, action) => {
-//     switch (action.type) {
-//         case 'submit':
-//             return {...state, name: action.name, last_name: action.last_name, email: action.email, password: action.password}
-//     }
-// }
+const reducer = (state, { field, value}) => {
+    return {
+        ...state,
+        [field]: value
+    }
+}
 
 const SignUp = () => {
-    // const [count, dispatch] = useReducer(reducer, initialState)
-
-    
     const [user, setUser] = useContext(UserListContext)
+    const [terms, setTerms] = useState(false)
+    const [state, dispatch] = useReducer(reducer, initialState)
+    
+    const onChange = (e) => {
+        dispatch({ field: e.target.name, value: e.target.value })
+    }
+
+    const reset = (e) => {
+        dispatch({ field: '', value: e.target.value })
+    }
+
+    const handleSubmit = () => {        
+        if (terms) {
+            if (password === confirm_password) {
+                setUser(prevUser => [...prevUser, { name: name, last_name: last_name, email: email, password: password }])
+                reset()
+            } else {
+                alert("Las contraseñas no coinciden")
+            }    
+        } else {
+            alert("Debe aceptar los términos y condiciones de uso")
+        }
+    }
+
+    const handleTerms = () => {
+        setTerms(!terms)
+    }
+
+    const showUsers = () => {
+        console.log(user)
+    }
+
+    const { name, last_name, email, password, confirm_password } = state
+
+    /*
+        # Manejo de inputs mediante useState:
+        > Falta mejorar validación de password.
+    
+    
     const [name, setName] = useState('')
     const [last_name, setLast_Name] = useState('')
     const [email, setEmail] = useState('')
@@ -62,7 +97,7 @@ const SignUp = () => {
     const addUser = (e) => {
         e.preventDefault();
         if ( password === confirm_password ) {
-            setUser(prevUser => [...prevUser, { name: name, last_name: last_name, email: email, password: password }]) 
+             
         } else {
             alert("contraseñas incorrectas")
         } 
@@ -70,16 +105,8 @@ const SignUp = () => {
             alert("debe aceptar los terminos y condiciones de uso")
         }
     }
-
-    const handleTerms = () => {
-        setTerms(!terms)
-    }
-
-    const showUsers = () => {
-        console.log(user)
-    }
-    
-
+    */
+   
     return (
         <Col md={5} className="mt-5 mb-5">
             <Row>
@@ -93,17 +120,17 @@ const SignUp = () => {
             <Form>
                 <Row>
                     <Col md={6} xs={6}>
-                        <Input type="text" label="Nombre" name="name" value={name} onChange={updateName} />
+                        <Input type="text" label="Nombre" name="name" value={name} onChange={onChange} />
                     </Col>
                     <Col md={6} xs={6}>
-                        <Input type="text" label="Apellidos" name="last_name" value={last_name} onChange={updateLast_Name} />
+                        <Input type="text" label="Apellidos" name="last_name" value={last_name} onChange={onChange} />
                     </Col>
                 </Row>
-                <Input type="email" label="Email *" name="email" value={email} onChange={updateEmail} />
-                <Input type="password" label="Contraseña *" form_msg="> Incluir número y una letra mayúscula" name="password" value={password} onChange={updatePassword} />
-                <Input type="password" label="Confirmar contraseña *"  form_msg="> Repetir contraseña" name="confirm_password" value={confirm_password} onChange={updateConfirmPassword} />
+                <Input type="email" label="Email *" name="email" value={email} onChange={onChange} />
+                <Input type="password" label="Contraseña *" form_msg="> Incluir número y una letra mayúscula" name="password" value={password} onChange={onChange} />
+                <Input type="password" label="Confirmar contraseña *"  form_msg="> Repetir contraseña" name="confirm_password" value={confirm_password} onChange={onChange} />
                 <Checkbox name="terms" value={terms} onClick={handleTerms} type="checkbox" label={["He leído los ", <a href="#" className="checkbox">términos y condiciones de uso</a>]} />
-                <ButtonCustom variant="success" block={true} btn_text="Registrarse" submit={addUser} />
+                <ButtonCustom variant="success" block={true} btn_text="Registrarse" submit={handleSubmit} />
                 <ButtonCustom variant="primary" block={true} btn_text="ConsoleLog" submit={showUsers} />
 
             </Form>
