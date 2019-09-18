@@ -19,34 +19,46 @@ const initialState = {
     confirm_password: ''
 }
 
-const reducer = (state, { field, value}) => {
+
+    
+
+const reducer = (state, { field, value }) => {
     return {
         ...state,
         [field]: value
     }
 }
 
+
+// const reducer = (state, action) => {
+//     switch (action.type) {
+//         case 'update':
+//             return {
+//                 ...state, [field]: value
+//             }
+//         case 'reset':
+//             return initialState
+//         default:
+//             return state
+//     }
+// }
+
 const SignUp = () => {
     const [user, setUser] = useContext(UserListContext)
     const [terms, setTerms] = useState(false)
     const [state, dispatch] = useReducer(reducer, initialState)
-    
+
     const onChange = (e) => {
-        dispatch({ field: e.target.name, value: e.target.value })
+        dispatch({ type: 'update', field: e.target.name, value: e.target.value })
     }
 
-    const reset = (e) => {
-        dispatch({ field: '', value: e.target.value })
-    }
-
-    const handleSubmit = () => {        
+    const handleSubmit = (e) => {   
         if (terms) {
             if (password === confirm_password) {
                 setUser(prevUser => [...prevUser, { name: name, last_name: last_name, email: email, password: password }])
-                reset()
             } else {
                 alert("Las contraseñas no coinciden")
-            }    
+            }
         } else {
             alert("Debe aceptar los términos y condiciones de uso")
         }
@@ -106,7 +118,7 @@ const SignUp = () => {
         }
     }
     */
-   
+
     return (
         <Col md={5} className="mt-5 mb-5">
             <Row>
@@ -128,7 +140,7 @@ const SignUp = () => {
                 </Row>
                 <Input type="email" label="Email *" name="email" value={email} onChange={onChange} />
                 <Input type="password" label="Contraseña *" form_msg="> Incluir número y una letra mayúscula" name="password" value={password} onChange={onChange} />
-                <Input type="password" label="Confirmar contraseña *"  form_msg="> Repetir contraseña" name="confirm_password" value={confirm_password} onChange={onChange} />
+                <Input type="password" label="Confirmar contraseña *" form_msg="> Repetir contraseña" name="confirm_password" value={confirm_password} onChange={onChange} />
                 <Checkbox name="terms" value={terms} onClick={handleTerms} type="checkbox" label={["He leído los ", <a href="#" className="checkbox">términos y condiciones de uso</a>]} />
                 <ButtonCustom variant="success" block={true} btn_text="Registrarse" submit={handleSubmit} />
                 <ButtonCustom variant="primary" block={true} btn_text="ConsoleLog" submit={showUsers} />

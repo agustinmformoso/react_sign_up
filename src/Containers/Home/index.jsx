@@ -22,7 +22,7 @@ const Home = () => {
                 <Row className="mt-5 mb-5">
                     <Col md={{ span: 10, offset: 2 }} className="justify-content-md-center">
                         <Row>
-                            <Col md={5} className="mt-5 mb-5 p-0 sign_up_img_col">
+                            <Col md={5} className="mt-5 mb-5 mr-5 p-0 sign_up_img_col">
                                 <Image src={sign_up_img} alt="sign_up_img" className="sign_up_img" fluid={true} />
                             </Col>
 
