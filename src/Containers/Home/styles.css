@@ -1,0 +1,10 @@
+.sign_up_img {
+    border-radius: 5px;
+    vertical-align: middle;
+}
+
+@media (max-width: 992px) {
+    .sign_up_img_col * {
+        display: none;
+    }
+}

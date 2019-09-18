@@ -1,0 +1,17 @@
+.checkbox {
+    color: #007E33;
+    font-weight: bold;
+}
+
+.checkbox:hover {
+    color: #1b5e20;
+}
+
+.sign_up_title {
+    font-weight: bold;
+}
+
+.fa-chevron-circle-left {
+    color: #007E33;
+    margin-left: -50px;
+}

@@ -1,0 +1,11 @@
+.nav_item_a {
+    color: #9e9e9e;
+}
+
+.nav_item_left a {
+    color: #9e9e9e!important;
+}
+
+.nav_item_left a:hover {
+    color: #757575 !important;
+}
